@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import { useImageEditor } from "../../../context/page";
 // import LazyLoad from "react-lazyload";
-import LazyLoadComponent from "react-lazyload";
 import debounce from "lodash/debounce";
 import { Image, SlidersHorizontal } from "lucide-react";
 
@@ -456,28 +455,25 @@ const FiltersTool = React.memo(() => {
     []
   );
 
-  const handleFilterChange = useCallback(
-    debounce((filterName, value) => {
-      const newFilters = {
-        ...filterState.filters,
-        [filterName]: parseInt(value),
-      };
-      dispatchFilter({
-        type: "UPDATE_FILTERS",
-        payload: { filters: newFilters, preset: "Custom" },
+  const handleFilterChange = debounce((filterName, value) => {
+    const newFilters = {
+      ...filterState.filters,
+      [filterName]: parseInt(value),
+    };
+    dispatchFilter({
+      type: "UPDATE_FILTERS",
+      payload: { filters: newFilters, preset: "Custom" },
+    });
+    if (selectedLayerId) {
+      dispatch({
+        type: "UPDATE_LAYER",
+        payload: {
+          id: selectedLayerId,
+          updates: { filters: newFilters, preset: "Custom" },
+        },
       });
-      if (selectedLayerId) {
-        dispatch({
-          type: "UPDATE_LAYER",
-          payload: {
-            id: selectedLayerId,
-            updates: { filters: newFilters, preset: "Custom" },
-          },
-        });
-      }
-    }, 100),
-    [filterState.filters, selectedLayerId, dispatch]
-  );
+    }
+  }, 100);
 
   const applyPreset = useCallback(
     (presetName, presetFilters) => {
@@ -557,7 +553,9 @@ const FiltersTool = React.memo(() => {
     let isMounted = true;
     if (selectedLayer?.data) {
       if (typeof selectedLayer.data === "string") {
-        setResolvedImageSrc(selectedLayer.data);
+        setTimeout(() => {
+          setResolvedImageSrc(selectedLayer.data);
+        }, 0);
       } else if (selectedLayer.data instanceof File) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -569,7 +567,9 @@ const FiltersTool = React.memo(() => {
         };
       }
     } else {
-      setResolvedImageSrc(null);
+      setTimeout(() => {
+        setResolvedImageSrc(null);
+      }, 0);
     }
     return () => {
       isMounted = false;
@@ -637,19 +637,15 @@ const FiltersTool = React.memo(() => {
             {isPresetsOpen && (
               <div className="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-200">
                 {filterPresets.slice(0, visiblePresets).map((preset) => (
-                  <LazyLoadComponent
+                  <button
                     key={preset.name}
-                    height={100}
-                    offset={100}
+                    onClick={() => applyPreset(preset.name, preset.filters)}
+                    className={`group relative overflow-hidden rounded-xl border transition-all duration-300 transform hover:scale-105 ${
+                      filterState.preset === preset.name
+                        ? "border-purple-500 shadow-lg shadow-purple-500/25"
+                        : "border-gray-300 hover:border-gray-400"
+                    }`}
                   >
-                    <button
-                      onClick={() => applyPreset(preset.name, preset.filters)}
-                      className={`group relative overflow-hidden rounded-xl border transition-all duration-300 transform hover:scale-105 ${
-                        filterState.preset === preset.name
-                          ? "border-purple-500 shadow-lg shadow-purple-500/25"
-                          : "border-gray-300 hover:border-gray-400"
-                      }`}
-                    >
                       <div className="aspect-square overflow-hidden">
                         <img
                           src={resolvedImageSrc || sampleImage}
@@ -676,7 +672,6 @@ const FiltersTool = React.memo(() => {
                         </div>
                       )}
                     </button>
-                  </LazyLoadComponent>
                 ))}
                 {visiblePresets < filterPresets.length && (
                   <button
