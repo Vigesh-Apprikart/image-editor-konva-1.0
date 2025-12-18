@@ -13,7 +13,7 @@ import {
   PanelRight,
   Wand2 // New icon for AI editing
 } from 'lucide-react';
-import { useImageEditor } from '../../context/page';
+import { useImageEditor } from '../../context';
 
 const tools = [
   { id: 'select', icon: MousePointer, name: 'Select' },
@@ -44,15 +44,15 @@ const ToolSidebar = () => {
       {tools.map((tool) => {
         const Icon = tool.icon;
         const isActive = state.currentTool === tool.id;
-        
+
         return (
           <button
             key={tool.id}
             onClick={() => handleToolSelect(tool.id)}
             className={`
               relative w-full h-12 flex items-center px-4 transition-all duration-200
-              ${isActive 
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' 
+              ${isActive
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
                 : 'hover:bg-gray-100'
               }
             `}
@@ -67,7 +67,7 @@ const ToolSidebar = () => {
           </button>
         );
       })}
-      
+
       <div className="flex-1" />
     </div>
   );

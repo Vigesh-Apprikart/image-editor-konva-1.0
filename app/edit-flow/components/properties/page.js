@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Settings } from "lucide-react";
-import { useImageEditor } from "../../context/page";
+import { useImageEditor } from "../../context";
 import BackgroundRemover from "../../components/tools/bgremover/page";
 import CropTool from "../../components/tools/crop/page";
 import TextTool from "../../components/tools/text/page";

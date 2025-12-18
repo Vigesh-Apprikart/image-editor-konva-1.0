@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useImageEditor } from '../../context/page';
+import { useImageEditor } from '../../context';
 
 const StatusBar = () => {
   const { state } = useImageEditor();
@@ -15,7 +15,7 @@ const StatusBar = () => {
         )}
         <span>Layers: {state.layers.length}</span>
       </div>
-      
+
       <div className="flex items-center space-x-4">
         <span>Zoom: {Math.round(state.zoom * 100)}%</span>
         <span>Canvas: {state.canvasSize.width} × {state.canvasSize.height}</span>

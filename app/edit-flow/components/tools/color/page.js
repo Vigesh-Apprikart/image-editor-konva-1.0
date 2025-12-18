@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 import { Palette, Image } from "lucide-react";
 
 const AddColorTool = () => {

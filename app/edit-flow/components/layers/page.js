@@ -10,7 +10,7 @@ import {
   AlignCenter,
   Layers,
 } from "lucide-react";
-import { useImageEditor } from "../../context/page";
+import { useImageEditor } from "../../context";
 
 const LayersPanel = () => {
   const { state, dispatch } = useImageEditor();
@@ -92,10 +92,9 @@ const LayersPanel = () => {
             onClick={() => handleLayerSelect(layer.id)}
             className={`
               group p-3 border-b border-gray-100 cursor-pointer transition-colors duration-200
-              ${
-                layer.id === state.selectedLayerId
-                  ? "bg-blue-50 border-l-2 border-l-blue-500"
-                  : "hover:bg-gray-50"
+              ${layer.id === state.selectedLayerId
+                ? "bg-blue-50 border-l-2 border-l-blue-500"
+                : "hover:bg-gray-50"
               }
             `}
           >

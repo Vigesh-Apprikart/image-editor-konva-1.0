@@ -3,7 +3,7 @@
 import React from 'react';
 import { createContext, useContext, useReducer, useCallback, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
-import { createBackgroundWorker } from "../utils/backgroundworker/page";
+import { createBackgroundWorker } from "../utils/backgroundworker";
 
 const ImageEditorContext = createContext();
 

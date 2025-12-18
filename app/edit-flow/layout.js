@@ -1,4 +1,4 @@
-import { ImageEditorProvider } from "./context/page";
+import { ImageEditorProvider } from "./context";
 import TopNavbar from "./components/navigation/page";
 import StatusBar from "./components/statusbar/page";
 

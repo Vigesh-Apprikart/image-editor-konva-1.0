@@ -1,5 +1,5 @@
 "use client";
-import { useImageEditor } from "../context/page";
+import { useImageEditor } from "../context";
 import ToolSidebar from "../components/sidebar/page";
 import KonvaCanvas from "../components/canvas/konvacanvas/page";
 import ImageUpload from "../components/canvas/imageupload/page";

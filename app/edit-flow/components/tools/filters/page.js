@@ -7,7 +7,7 @@ import React, {
   useReducer,
   useMemo,
 } from "react";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 // import LazyLoad from "react-lazyload";
 import debounce from "lodash/debounce";
 import { Image, SlidersHorizontal } from "lucide-react";
@@ -640,38 +640,37 @@ const FiltersTool = React.memo(() => {
                   <button
                     key={preset.name}
                     onClick={() => applyPreset(preset.name, preset.filters)}
-                    className={`group relative overflow-hidden rounded-xl border transition-all duration-300 transform hover:scale-105 ${
-                      filterState.preset === preset.name
+                    className={`group relative overflow-hidden rounded-xl border transition-all duration-300 transform hover:scale-105 ${filterState.preset === preset.name
                         ? "border-purple-500 shadow-lg shadow-purple-500/25"
                         : "border-gray-300 hover:border-gray-400"
-                    }`}
+                      }`}
                   >
-                      <div className="aspect-square overflow-hidden">
-                        <img
-                          src={resolvedImageSrc || sampleImage}
-                          alt={preset.name}
-                          className="w-full h-full object-cover transition-all duration-300"
-                          style={{
-                            filter: `brightness(${preset.filters.brightness}%) contrast(${preset.filters.contrast}%) saturate(${preset.filters.saturation}%) hue-rotate(${preset.filters.hue}deg) blur(${preset.filters.blur}px) grayscale(${preset.filters.grayscale}%) sepia(${preset.filters.sepia}%) invert(${preset.filters.invert}%) opacity(${preset.filters.opacity}%)`,
-                          }}
-                          loading="lazy"
-                        />
+                    <div className="aspect-square overflow-hidden">
+                      <img
+                        src={resolvedImageSrc || sampleImage}
+                        alt={preset.name}
+                        className="w-full h-full object-cover transition-all duration-300"
+                        style={{
+                          filter: `brightness(${preset.filters.brightness}%) contrast(${preset.filters.contrast}%) saturate(${preset.filters.saturation}%) hue-rotate(${preset.filters.hue}deg) blur(${preset.filters.blur}px) grayscale(${preset.filters.grayscale}%) sepia(${preset.filters.sepia}%) invert(${preset.filters.invert}%) opacity(${preset.filters.opacity}%)`,
+                        }}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="flex items-center justify-center">
+                        <span className="text-xs mr-1">{preset.icon}</span>
+                        <span className="text-xs font-medium text-center leading-tight">
+                          {preset.name}
+                        </span>
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute bottom-0 left-0 right-0 p-2 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <div className="flex items-center justify-center">
-                          <span className="text-xs mr-1">{preset.icon}</span>
-                          <span className="text-xs font-medium text-center leading-tight">
-                            {preset.name}
-                          </span>
-                        </div>
+                    </div>
+                    {filterState.preset === preset.name && (
+                      <div className="absolute top-2 right-2 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-xs">✓</span>
                       </div>
-                      {filterState.preset === preset.name && (
-                        <div className="absolute top-2 right-2 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs">✓</span>
-                        </div>
-                      )}
-                    </button>
+                    )}
+                  </button>
                 ))}
                 {visiblePresets < filterPresets.length && (
                   <button
@@ -721,15 +720,13 @@ const FiltersTool = React.memo(() => {
                         }
                         className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer slider"
                         style={{
-                          background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${
-                            ((filterState.filters[control.name] - control.min) /
+                          background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${((filterState.filters[control.name] - control.min) /
                               (control.max - control.min)) *
                             100
-                          }%, #d1d5db ${
-                            ((filterState.filters[control.name] - control.min) /
+                            }%, #d1d5db ${((filterState.filters[control.name] - control.min) /
                               (control.max - control.min)) *
                             100
-                          }%, #d1d5db 100%)`,
+                            }%, #d1d5db 100%)`,
                         }}
                       />
                       <div className="flex justify-between text-xs text-gray-500 mt-1">

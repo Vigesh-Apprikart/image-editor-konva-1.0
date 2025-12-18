@@ -10,7 +10,7 @@ import {
   Text,
   Circle,
 } from "react-konva";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 
 const KonvaCanvas = () => {
   const stageRef = useRef();

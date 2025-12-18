@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { Image as ImageIcon, Palette, Sparkles, Upload, X } from "lucide-react";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 import { Image } from "lucide-react";
 
 // Initial background images
@@ -130,9 +130,8 @@ const BackgroundTool = () => {
         const newImage = {
           id: backgroundImages.length + 1,
           url: newImageUrl,
-          name: `Custom Image ${
-            backgroundImages.length - initialBackgroundImages.length + 1
-          }`,
+          name: `Custom Image ${backgroundImages.length - initialBackgroundImages.length + 1
+            }`,
         };
         setBackgroundImages([...backgroundImages, newImage]);
         setCustomImage(newImageUrl);
@@ -210,7 +209,7 @@ const BackgroundTool = () => {
       </div>
 
       {/* Description */}
-      
+
       <div className="mb-8">
         <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl">
           <Image className="w-5 h-5 text-pink-600 mt-0.5 flex-shrink-0" />
@@ -230,9 +229,8 @@ const BackgroundTool = () => {
         >
           <span>Select Background Type</span>
           <svg
-            className={`w-5 h-5 transform transition-transform duration-200 ${
-              isCollapsed ? "rotate-0" : "rotate-180"
-            }`}
+            className={`w-5 h-5 transform transition-transform duration-200 ${isCollapsed ? "rotate-0" : "rotate-180"
+              }`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -256,11 +254,10 @@ const BackgroundTool = () => {
                     setActiveTab(tab.id);
                     setIsCollapsed(true);
                   }}
-                  className={`w-full flex items-center py-3 px-4 text-sm font-medium transition-all duration-200 ${
-                    activeTab === tab.id
+                  className={`w-full flex items-center py-3 px-4 text-sm font-medium transition-all duration-200 ${activeTab === tab.id
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
                       : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"
-                  }`}
+                    }`}
                 >
                   <Icon size={18} className="mr-2" />
                   {tab.label}
@@ -285,15 +282,13 @@ const BackgroundTool = () => {
                     onClick={() =>
                       handleColorSelect(preset.color, preset.transparent)
                     }
-                    className={`w-full h-16 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 ${
-                      selectedColor === preset.color && !selectedImage
+                    className={`w-full h-16 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 ${selectedColor === preset.color && !selectedImage
                         ? "ring-4 ring-blue-500 ring-offset-2 ring-offset-white"
                         : ""
-                    } ${
-                      preset.transparent
+                      } ${preset.transparent
                         ? 'bg-[url(\'data:image/svg+xml,%3Csvg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="8" height="8" fill="%23E5E7EB"/%3E%3Crect x="8" y="8" width="8" height="8" fill="%23E5E7EB"/%3E%3Crect x="8" width="8" height="8" fill="%23D1D5DB"/%3E%3Crect x="8" y="8" width="8" height="8" fill="%23D1D5DB"/%3E%3C/svg%3E\')] bg-repeat'
                         : ""
-                    }`}
+                      }`}
                     style={
                       preset.transparent
                         ? {}
@@ -340,11 +335,10 @@ const BackgroundTool = () => {
                 <div key={index} className="text-center">
                   <button
                     onClick={() => handleGradientSelect(preset.gradient)}
-                    className={`w-full h-24 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 ${
-                      selectedGradient === preset.gradient && !selectedImage
+                    className={`w-full h-24 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 ${selectedGradient === preset.gradient && !selectedImage
                         ? "ring-4 ring-blue-500 ring-offset-2 ring-offset-white"
                         : ""
-                    }`}
+                      }`}
                     style={{ background: preset.gradient }}
                     aria-label={`Select ${preset.name} gradient`}
                   />
@@ -369,11 +363,10 @@ const BackgroundTool = () => {
                 <div key={image.id} className="text-center">
                   <button
                     onClick={() => handleImageSelect(image.url)}
-                    className={`group relative w-full h-32 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 ${
-                      selectedImage === image.url
+                    className={`group relative w-full h-32 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 ${selectedImage === image.url
                         ? "ring-4 ring-blue-500 ring-offset-2 ring-offset-white"
                         : ""
-                    }`}
+                      }`}
                   >
                     <img
                       src={image.url}
@@ -485,10 +478,10 @@ const BackgroundTool = () => {
                   ? 'url(\'data:image/svg+xml,%3Csvg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="8" height="8" fill="%23E5E7EB"/%3E%3Crect x="8" y="8" width="8" height="8" fill="%23E5E7EB"/%3E%3Crect x="8" width="8" height="8" fill="%23D1D5DB"/%3E%3Crect x="8" y="8" width="8" height="8" fill="%23D1D5DB"/%3E%3C/svg%3E\') repeat'
                   : selectedColor
                 : activeTab === "gradients"
-                ? selectedGradient
-                : selectedImage
-                ? `url(${selectedImage}) center/cover`
-                : "rgba(0,0,0,0.1)",
+                  ? selectedGradient
+                  : selectedImage
+                    ? `url(${selectedImage}) center/cover`
+                    : "rgba(0,0,0,0.1)",
           }}
         />
       </div>

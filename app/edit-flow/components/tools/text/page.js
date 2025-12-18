@@ -8,7 +8,7 @@ import React, {
   memo,
   useCallback,
 } from "react";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 import { Image, Type } from "lucide-react";
 
 // Lazy load HexColorPicker
@@ -202,9 +202,8 @@ function TextTool() {
   // Memoize slider background
   const sliderStyle = useMemo(
     () => ({
-      background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${
-        ((options.fontSize - 8) / (72 - 8)) * 100
-      }%, #e5e7eb ${((options.fontSize - 8) / (72 - 8)) * 100}%, #e5e7eb 100%)`,
+      background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${((options.fontSize - 8) / (72 - 8)) * 100
+        }%, #e5e7eb ${((options.fontSize - 8) / (72 - 8)) * 100}%, #e5e7eb 100%)`,
     }),
     [options.fontSize]
   );
@@ -457,20 +456,18 @@ function TextTool() {
                 }
               }}
               className={`w-full bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-500 p-4 rounded-xl focus:outline-none transition-all duration-300 resize-none
-                ${
-                  isTextInputActive
-                    ? "ring-2 ring-offset-2 ring-offset-white ring-pink-500 shadow-lg shadow-blue-500/20 border-pink-300"
-                    : "focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                ${isTextInputActive
+                  ? "ring-2 ring-offset-2 ring-offset-white ring-pink-500 shadow-lg shadow-blue-500/20 border-pink-300"
+                  : "focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                 }`}
               placeholder="Enter your text here"
               rows={4}
             />
             <p
-              className={`text-sm mt-1 ${
-                options.text.length > 650
+              className={`text-sm mt-1 ${options.text.length > 650
                   ? "text-red-600 font-semibold"
                   : "text-gray-500"
-              }`}
+                }`}
             >
               {options.text.length}/700 characters
             </p>
@@ -480,9 +477,8 @@ function TextTool() {
           <button
             onClick={handleAddText}
             disabled={!options.text.trim()}
-            className={`w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 mb-6 group ${
-              !options.text.trim() ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 mb-6 group ${!options.text.trim() ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             <span className="flex items-center justify-center">
               <span className="mr-2 text-xl group-hover:rotate-12 transition-transform duration-300">
@@ -554,9 +550,8 @@ function TextTool() {
                   <span className="text-gray-800 font-medium">Pick Color</span>
                 </div>
                 <span
-                  className={`text-gray-500 transition-transform duration-300 ${
-                    showColorPicker ? "rotate-180" : ""
-                  }`}
+                  className={`text-gray-500 transition-transform duration-300 ${showColorPicker ? "rotate-180" : ""
+                    }`}
                 >
                   ⌄
                 </span>

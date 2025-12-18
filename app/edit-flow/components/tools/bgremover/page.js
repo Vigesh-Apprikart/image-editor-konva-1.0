@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, memo } from "react";
 import { Scissors, Image, AlertCircle, Sparkles } from "lucide-react";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 
 // Utility to convert data URL to Blob
 const dataUrlToBlob = async (dataUrl) => {

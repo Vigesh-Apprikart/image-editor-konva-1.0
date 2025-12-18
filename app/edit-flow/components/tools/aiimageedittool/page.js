@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { Wand2, Loader2, Image } from "lucide-react";
-import { useImageEditor } from "../../../context/page";
-import { applyAIEdit } from "../../../utils/aieditapi/page";
+import { useImageEditor } from "../../../context";
+import { applyAIEdit } from "../../../utils/aieditapi";
 
 const AIEditTool = () => {
   const { state, dispatch } = useImageEditor();
@@ -87,10 +87,9 @@ const AIEditTool = () => {
         disabled={isProcessing || !prompt || !state.selectedLayerId}
         className={`
           w-full py-2 px-4 rounded-md text-white font-medium
-          ${
-            isProcessing || !prompt || !state.selectedLayerId
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          ${isProcessing || !prompt || !state.selectedLayerId
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
           }
         `}
       >

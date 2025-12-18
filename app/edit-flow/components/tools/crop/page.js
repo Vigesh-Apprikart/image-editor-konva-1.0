@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 import { Crop, Check, X, Image } from "lucide-react";
-import { useImageEditor } from "../../../context/page";
+import { useImageEditor } from "../../../context";
 
 // Define aspect ratios as a constant outside the component to prevent re-creation
 const aspectRatios = [
@@ -31,13 +31,11 @@ const AspectRatioButton = memo(({ ratio, selectedRatio, onSelect }) => (
     onClick={() => onSelect(ratio.value)}
     className={`
       px-3 py-2 text-sm rounded-xl transition-colors duration-200
-      ${
-        selectedRatio === ratio.value
-          ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+      ${selectedRatio === ratio.value
+        ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
       }
-      border ${
-        selectedRatio === ratio.value ? "border-purple-300" : "border-gray-300"
+      border ${selectedRatio === ratio.value ? "border-purple-300" : "border-gray-300"
       }
     `}
   >
