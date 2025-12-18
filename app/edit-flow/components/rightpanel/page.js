@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Layers, Settings } from "lucide-react";
 import LayersPanel from "../layers/page";
-import PropertiesPanel from "../properties/page";
+import PropertiesPanel from "../Properties/page";
 
 const RightPanel = () => {
   const [activeTab, setActiveTab] = useState("properties");

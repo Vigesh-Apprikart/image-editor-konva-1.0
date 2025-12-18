@@ -1,37 +1,57 @@
-## Project Overview
+# Project Overview
 
-This is a Next.js project bootstrapped with `create-next-app`. It appears to be a web-based image editor.
+This is a Next.js project bootstrapped with `create-next-app`. It appears to be a web application, likely an image editor, based on the directory name "image-editor-konva-1.0". The project uses React, and Tailwind CSS.
 
-The main application logic seems to be within the `app/edit-flow` directory. The editor uses `Konva.js` for the canvas functionality and has components for a toolbar, sidebar, and properties panel.
+# Building and Running
 
-**Key Technologies:**
-
-*   **Framework:** Next.js
-*   **Language:** JavaScript (with some TypeScript configuration files)
-*   **UI Library:** React
-*   **Styling:** Tailwind CSS
-*   **Linting:** ESLint
-*   **Canvas:** Konva.js (inferred from `konvacanvas`)
-
-## Building and Running
-
-To get the development environment running, use the following command:
+To get the development server running, use the following command:
 
 ```bash
 npm run dev
 ```
 
-This will start the development server on [http://localhost:3000](http://localhost:3000).
+This will start the server on [http://localhost:3000](http://localhost:3000).
 
-**Other available scripts:**
+To build the application for production, use:
 
-*   `npm run build`: Builds the application for production.
-*   `npm run start`: Starts a production server.
-*   `npm run lint`: Runs the ESLint linter to check for code quality.
+```bash
+npm run build
+```
 
-## Development Conventions
+To start the production server, use:
 
-*   The project uses `ESLint` for code linting. The configuration is in `eslint.config.mjs`.
-*   Styling is done using Tailwind CSS. The configuration is in `postcss.config.mjs` and `tailwind.config.js` (though `tailwind.config.js` is not present in the file listing, it's a standard file for Tailwind CSS).
-*   The project is configured for TypeScript, as indicated by `tsconfig.json` and `.ts` files in the root. However, most of the application code seems to be in JavaScript (`.js` and `.jsx`).
-*   The application is structured using Next.js App Router.
+```bash
+npm run start
+```
+
+# Routing
+
+The application uses the Next.js App Router. Here are the main routes:
+
+- `/`: The main landing page.
+- `/edit-flow`: The main page for the image editor.
+
+# Development Conventions
+
+The project includes a linting script that can be run with:
+
+```bash
+npm run lint
+```
+
+This uses ESLint to enforce code quality. It's recommended to run this command before committing changes.
+
+# Dependencies
+
+## Production Dependencies
+- next: 16.0.10
+- react: 19.2.1
+- react-dom: 19.2.1
+
+## Development Dependencies
+- @tailwindcss/postcss": ^4.1.18
+- autoprefixer: ^10.4.23
+- eslint: ^9
+- eslint-config-next: 16.0.10
+- postcss: ^8.5.6
+- tailwindcss: ^4.1.18

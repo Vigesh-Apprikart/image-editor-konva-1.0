@@ -9,8 +9,10 @@ import React, {
 } from "react";
 import { useImageEditor } from "../../../context";
 // import LazyLoad from "react-lazyload";
+
 import debounce from "lodash/debounce";
-import { Image, SlidersHorizontal } from "lucide-react";
+import Image from "next/image";
+import { Image as ImageIcon, SlidersHorizontal } from "lucide-react";
 
 const defaultFilters = {
   brightness: 100,
@@ -455,25 +457,29 @@ const FiltersTool = React.memo(() => {
     []
   );
 
-  const handleFilterChange = debounce((filterName, value) => {
-    const newFilters = {
-      ...filterState.filters,
-      [filterName]: parseInt(value),
-    };
-    dispatchFilter({
-      type: "UPDATE_FILTERS",
-      payload: { filters: newFilters, preset: "Custom" },
-    });
-    if (selectedLayerId) {
-      dispatch({
-        type: "UPDATE_LAYER",
-        payload: {
-          id: selectedLayerId,
-          updates: { filters: newFilters, preset: "Custom" },
-        },
-      });
-    }
-  }, 100);
+  const handleFilterChange = useMemo(
+    () =>
+      debounce((filterName, value) => {
+        const newFilters = {
+          ...filterState.filters,
+          [filterName]: parseInt(value),
+        };
+        dispatchFilter({
+          type: "UPDATE_FILTERS",
+          payload: { filters: newFilters, preset: "Custom" },
+        });
+        if (selectedLayerId) {
+          dispatch({
+            type: "UPDATE_LAYER",
+            payload: {
+              id: selectedLayerId,
+              updates: { filters: newFilters, preset: "Custom" },
+            },
+          });
+        }
+      }, 100),
+    [filterState.filters, selectedLayerId, dispatch]
+  );
 
   const applyPreset = useCallback(
     (presetName, presetFilters) => {
@@ -551,15 +557,19 @@ const FiltersTool = React.memo(() => {
 
   useEffect(() => {
     let isMounted = true;
+    const updateImageSrc = (src) => {
+      if (isMounted && resolvedImageSrc !== src) {
+        setResolvedImageSrc(src);
+      }
+    };
+
     if (selectedLayer?.data) {
       if (typeof selectedLayer.data === "string") {
-        setTimeout(() => {
-          setResolvedImageSrc(selectedLayer.data);
-        }, 0);
+        updateImageSrc(selectedLayer.data);
       } else if (selectedLayer.data instanceof File) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          if (isMounted) setResolvedImageSrc(e.target.result);
+          updateImageSrc(e.target.result);
         };
         reader.readAsDataURL(selectedLayer.data);
         return () => {
@@ -567,14 +577,12 @@ const FiltersTool = React.memo(() => {
         };
       }
     } else {
-      setTimeout(() => {
-        setResolvedImageSrc(null);
-      }, 0);
+      updateImageSrc(null);
     }
     return () => {
       isMounted = false;
     };
-  }, [selectedLayer]);
+  }, [selectedLayer, resolvedImageSrc]);
 
   const togglePresets = useCallback(
     () => setIsPresetsOpen((prev) => !prev),
@@ -637,6 +645,7 @@ const FiltersTool = React.memo(() => {
             {isPresetsOpen && (
               <div className="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-200">
                 {filterPresets.slice(0, visiblePresets).map((preset) => (
+
                   <button
                     key={preset.name}
                     onClick={() => applyPreset(preset.name, preset.filters)}
@@ -646,14 +655,14 @@ const FiltersTool = React.memo(() => {
                       }`}
                   >
                     <div className="aspect-square overflow-hidden">
-                      <img
+                      <Image
                         src={resolvedImageSrc || sampleImage}
                         alt={preset.name}
-                        className="w-full h-full object-cover transition-all duration-300"
+                        fill
                         style={{
+                          objectFit: 'cover',
                           filter: `brightness(${preset.filters.brightness}%) contrast(${preset.filters.contrast}%) saturate(${preset.filters.saturation}%) hue-rotate(${preset.filters.hue}deg) blur(${preset.filters.blur}px) grayscale(${preset.filters.grayscale}%) sepia(${preset.filters.sepia}%) invert(${preset.filters.invert}%) opacity(${preset.filters.opacity}%)`,
                         }}
-                        loading="lazy"
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -671,6 +680,7 @@ const FiltersTool = React.memo(() => {
                       </div>
                     )}
                   </button>
+
                 ))}
                 {visiblePresets < filterPresets.length && (
                   <button
