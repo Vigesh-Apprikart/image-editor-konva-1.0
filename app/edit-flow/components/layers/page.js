@@ -10,7 +10,7 @@ import {
   AlignCenter,
   Layers,
 } from "lucide-react";
-import { useImageEditor } from "../../context";
+import { useImageEditor } from "../../context/index";
 
 const LayersPanel = () => {
   const { state, dispatch } = useImageEditor();

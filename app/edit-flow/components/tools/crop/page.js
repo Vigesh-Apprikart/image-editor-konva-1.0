@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 import { Crop, Check, X, Image } from "lucide-react";
-import { useImageEditor } from "../../../context";
+import { useImageEditor } from "../../../context/index";
 
 // Define aspect ratios as a constant outside the component to prevent re-creation
 const aspectRatios = [

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Wand2, Loader2, Image } from "lucide-react";
-import { useImageEditor } from "../../../context";
+import { useImageEditor } from "../../../context/index";
 import { applyAIEdit } from "../../../utils/aieditapi";
 
 const AIEditTool = () => {

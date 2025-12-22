@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useImageEditor } from '../../context';
+import { useImageEditor } from '../../context/index';
 
 const StatusBar = () => {
   const { state } = useImageEditor();

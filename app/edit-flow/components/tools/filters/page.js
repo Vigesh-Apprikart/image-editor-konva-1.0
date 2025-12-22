@@ -7,7 +7,7 @@ import React, {
   useReducer,
   useMemo,
 } from "react";
-import { useImageEditor } from "../../../context";
+import { useImageEditor } from "../../../context/index";
 // import LazyLoad from "react-lazyload";
 
 import debounce from "lodash/debounce";

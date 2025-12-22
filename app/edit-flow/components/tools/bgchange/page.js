@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { Image as ImageIcon, Palette, Sparkles, Upload, X } from "lucide-react";
-import { useImageEditor } from "../../../context";
+import { useImageEditor } from "../../../context/index";
 import { Image } from "lucide-react";
 
 // Initial background images

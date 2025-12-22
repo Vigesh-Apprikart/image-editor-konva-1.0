@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { Upload, ImageIcon } from 'lucide-react';
-import { useImageEditor } from '../../../context';
+import { useImageEditor } from '../../../context/index';
 
 const ImageUpload = () => {
   const { state, dispatch } = useImageEditor();

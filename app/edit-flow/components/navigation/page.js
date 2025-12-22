@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { ZoomIn, ZoomOut, Download, Upload, Sparkles } from "lucide-react";
-import { useImageEditor } from "../../context";
+import { useImageEditor } from "../../context/index";
 import Konva from "konva";
 
 const TopNavbar = () => {

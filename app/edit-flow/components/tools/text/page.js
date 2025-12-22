@@ -8,7 +8,7 @@ import React, {
   memo,
   useCallback,
 } from "react";
-import { useImageEditor } from "../../../context";
+import { useImageEditor } from "../../../context/index";
 import { Image, Type } from "lucide-react";
 
 // Lazy load HexColorPicker

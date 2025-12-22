@@ -13,7 +13,7 @@ import {
   PanelRight,
   Wand2 // New icon for AI editing
 } from 'lucide-react';
-import { useImageEditor } from '../../context';
+import { useImageEditor } from '../../context/index';
 
 const tools = [
   { id: 'select', icon: MousePointer, name: 'Select' },
